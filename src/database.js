@@ -58,7 +58,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Importar tablas:
-//const { Modelo } = sequelize.models;
+const { Categories } = sequelize.models;
 
 // Relaciones:
 // Modelo.belongsToMany(OtroModelo, { tabla intermedia })
