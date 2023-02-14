@@ -3,9 +3,12 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
+const routes = require("./routes/index");
 require("./database.js");
 
 const app = express();
+
+app.name = "API";
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -23,7 +26,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// importar enrutador
+// Enrutador
+app.use("/", routes);
 
 // Catching error
 app.use((err, req, res, next) => {
