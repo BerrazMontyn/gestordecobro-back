@@ -1,18 +1,52 @@
 const { response } = require("express");
 const { Categories } = require("../database.js");
 
-const createCategories = async (req, res = response) => {
+const createCategorie = async (req, res = response) => {
   try {
     const { name } = req.body;
 
     const category = await Categories.create({ name });
 
     res.status(201).json({ msg: "Categoría creada", category });
-  
   } catch (error) {
-    console.log("ERROR in createCategories", error);
+    console.log("ERROR in createCategorie");
     res.status(500).send({ msg: error.message });
   }
 };
 
-module.exports = { createCategories };
+const getCategories = async (req, res = response) => {
+  try {
+    const allCategories = await Categories.findAll();
+
+    if (!allCategories.length) {
+      return res.status(404).send({ msg: "No hay Categorias" });
+    }
+    res.status(200).json({ msg: "Todas las categorías", allCategories });
+  } catch (error) {
+    console.log("ERROR in getCategories");
+    res.status(500).send({ msg: error.message });
+  }
+};
+
+const updateCategorie = async (req, res = response) => {
+  try {
+  } catch (error) {
+    console.log("ERROR in updateCategorie");
+    res.status(500).send({ msg: error.message });
+  }
+};
+
+const deleteCategorie = async (req, res = response) => {
+  try {
+  } catch (error) {
+    console.log("ERROR in deleteCategorie");
+    res.status(500).send({ msg: error.message });
+  }
+};
+
+module.exports = {
+  createCategorie,
+  getCategories,
+  // updateCategorie,
+  // deleteCategorie,
+};
