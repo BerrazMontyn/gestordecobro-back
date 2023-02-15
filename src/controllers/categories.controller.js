@@ -7,7 +7,7 @@ const createCategory = async (req, res = response) => {
 
     const category = await Categories.create({ name });
     res.status(201).json({ msg: "Categoría creada", category });
-    
+
   } catch (error) {
     console.log("ERROR in createCategorie");
     res.status(500).send({ msg: error.message });
@@ -31,6 +31,16 @@ const getCategories = async (req, res = response) => {
 
 const updateCategory = async (req, res = response) => {
   try {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    const categoryFound = await Categories.findByPk(id);
+    if (!categoryFound) {
+      return res.status(404).send({ msg: "Categoría no existente" });
+    }
+    await categoryFound.update({ name });
+    res.status(201).json({ msg: "Categoría actualizada", categoryFound });
+
   } catch (error) {
     console.log("ERROR in updateCategorie");
     res.status(500).send({ msg: error.message });
@@ -48,6 +58,6 @@ const deleteCategory = async (req, res = response) => {
 module.exports = {
   createCategory,
   getCategories,
-  // updateCategory,
-  // deleteCategorie,
+  updateCategory,
+  deleteCategory,
 };
