@@ -25,12 +25,24 @@ const createCustomer = async (req, res) => {
 
 //__________________________________________________________________//
 
+const getCustomerId = async (req, res) => {
+  try {
+    if (req.params.id) {
+      let customer = await Customers.findByPk(req.params.id);
+      return res.status(200).send(customer);
+    }
+  } catch (error) {
+    console.error("Error en getCustomerId", error);
+  }
+};
+//__________________________________________________________________//
+
 const getCustomer = async (req, res) => {
   try {
     if (req.query.name) {
       let customer = await Customers.findAll({
         where: {
-          [Op.and]: [{ name: { [Op.iLike]: `%${req.query.name}%` } }],
+          name: { [Op.iLike]: `%${req.query.name}%` },
         },
       });
       return res.status(200).send(customer);
@@ -66,6 +78,7 @@ const deleteCustomer = async (req, res) => {
 module.exports = {
   createCustomer,
   getCustomer,
+  getCustomerId,
   editCustomer,
   deleteCustomer,
 };
