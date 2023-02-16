@@ -14,7 +14,7 @@ const preloadAdmin = async () => {
       createAdmin(user);
     }
     return dataAdmin;
-    
+
   } catch (error) {
     console.log("ERROR en preloadAdmin", error);
   }
