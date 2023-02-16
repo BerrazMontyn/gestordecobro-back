@@ -19,9 +19,9 @@ const getCategories = async (req, res = response) => {
     const allCategories = await Categories.findAll();
 
     if (!allCategories.length) {
-      return res.status(404).send({ msg: "No hay Categorias" });
+      return res.json({ msg: "No hay Categorias", allCategories });
     }
-    res.status(200).json({ msg: "Todas las categorías", allCategories });
+    res.json({ msg: "Todas las categorías", allCategories });
 
   } catch (error) {
     console.log("ERROR in getCategories");
@@ -39,7 +39,7 @@ const updateCategory = async (req, res = response) => {
       return res.status(404).send({ msg: "Categoría no existente" });
     }
     await categoryFound.update({ name });
-    res.status(201).json({ msg: "Categoría actualizada", categoryFound });
+    res.json({ msg: "Categoría actualizada", categoryFound });
 
   } catch (error) {
     console.log("ERROR in updateCategorie");
