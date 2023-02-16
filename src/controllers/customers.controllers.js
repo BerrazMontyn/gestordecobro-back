@@ -1,4 +1,5 @@
 const { Customers } = require("../database");
+const { Op } = require("sequelize");
 
 //__________________________________________________________________//
 
@@ -26,6 +27,18 @@ const createCustomer = async (req, res) => {
 
 const getCustomer = async (req, res) => {
   try {
+    if (req.query.name) {
+      let customer = await Customers.findAll({
+        where: {
+          [Op.and]: [{ name: { [Op.iLike]: `%${req.query.name}%` } }],
+        },
+      });
+      console.log(customer);
+      return res.status(200).send(customer);
+    } else {
+      let customer = await Customers.findAll();
+      return res.status(200).send(customer);
+    }
   } catch (error) {
     console.error("Error en getCustomer", error);
   }
