@@ -17,7 +17,7 @@ const createCustomer = async (req, res) => {
 
     return res
       .status(200)
-      .json({ msj: "Customer successfully created", newCustomer });
+      .send({ message: "Successfully created", newCustomer });
   } catch (error) {
     console.error("Error in createCustomer", error);
   }
@@ -29,10 +29,10 @@ const getCustomerId = async (req, res) => {
   try {
     if (req.params.id) {
       let customer = await Customers.findByPk(req.params.id);
-      return res.status(200).send(customer);
+      return res.status(200).send({ message: "Successful search", customer });
     }
   } catch (error) {
-    console.error("Error en getCustomerId", error);
+    console.error("Error in getCustomerId", error);
   }
 };
 //__________________________________________________________________//
@@ -45,13 +45,13 @@ const getCustomer = async (req, res) => {
           name: { [Op.iLike]: `%${req.query.name}%` },
         },
       });
-      return res.status(200).send(customer);
+      return res.status(200).send({ message: "Successful search", customer });
     } else {
       let customer = await Customers.findAll();
-      return res.status(200).send(customer);
+      return res.status(200).send({ message: "Successful search", customer });
     }
   } catch (error) {
-    console.error("Error en getCustomer", error);
+    console.error("Error in getCustomer", error);
   }
 };
 
@@ -59,8 +59,12 @@ const getCustomer = async (req, res) => {
 
 const editCustomer = async (req, res) => {
   try {
+    await Customers.update(req.body, {
+      where: { id: req.params.id },
+    });
+    return res.status(200).send({ msj: "Successfully edited" });
   } catch (error) {
-    console.error("Error en editCustomer", error);
+    console.error("Error in editCustomer", error);
   }
 };
 
@@ -68,8 +72,10 @@ const editCustomer = async (req, res) => {
 
 const deleteCustomer = async (req, res) => {
   try {
+    await Customers.destroy({ where: { id: req.params.id } });
+    return res.status(200).send("Successfully eliminated");
   } catch (error) {
-    console.error("Error en deleteCustomer", error);
+    console.error("Error in deleteCustomer", error);
   }
 };
 
