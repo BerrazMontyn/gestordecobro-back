@@ -9,7 +9,7 @@ const createCategory = async (req, res = response) => {
     res.status(201).json({ msg: "Categoría creada", category });
 
   } catch (error) {
-    console.log("ERROR in createCategorie");
+    console.log("ERROR en createCategory");
     res.status(500).send({ msg: error.message });
   }
 };
@@ -19,12 +19,12 @@ const getCategories = async (req, res = response) => {
     const allCategories = await Categories.findAll();
 
     if (!allCategories.length) {
-      return res.status(404).send({ msg: "No hay Categorias" });
+      return res.json({ msg: "No hay Categorias", allCategories });
     }
-    res.status(200).json({ msg: "Todas las categorías", allCategories });
+    res.json({ msg: "Todas las categorías", allCategories });
 
   } catch (error) {
-    console.log("ERROR in getCategories");
+    console.log("ERROR en getCategories");
     res.status(500).send({ msg: error.message });
   }
 };
@@ -36,21 +36,30 @@ const updateCategory = async (req, res = response) => {
 
     const categoryFound = await Categories.findByPk(id);
     if (!categoryFound) {
-      return res.status(404).send({ msg: "Categoría no existente" });
+      return res.status(404).send({ msg: "Categoría no encontrada" });
     }
     await categoryFound.update({ name });
-    res.status(201).json({ msg: "Categoría actualizada", categoryFound });
+    res.json({ msg: "Categoría actualizada", categoryFound });
 
   } catch (error) {
-    console.log("ERROR in updateCategorie");
+    console.log("ERROR en updateCategory");
     res.status(500).send({ msg: error.message });
   }
 };
 
 const deleteCategory = async (req, res = response) => {
   try {
+    const { id } = req.params;
+
+    const categoryFound = await Categories.findByPk(id);
+    if (!categoryFound) {
+      return res.status(404).send({ msg: "Categoría no encontrada" });
+    }
+    await categoryFound.destroy();
+    res.send({ msg: "Categoría eliminada" });
+
   } catch (error) {
-    console.log("ERROR in deleteCategorie");
+    console.log("ERROR en deleteCategory");
     res.status(500).send({ msg: error.message });
   }
 };
