@@ -33,7 +33,6 @@ const getCustomer = async (req, res) => {
           [Op.and]: [{ name: { [Op.iLike]: `%${req.query.name}%` } }],
         },
       });
-      console.log(customer);
       return res.status(200).send(customer);
     } else {
       let customer = await Customers.findAll();
