@@ -5,6 +5,10 @@ const createCategory = async (req, res = response) => {
   try {
     const { name } = req.body;
 
+    const categoryFound = await Categories.findOne({ where: { name: name }});
+    if (categoryFound) {
+      res.status(409).send({ msg: "La categoría ya existe" });
+    }
     const category = await Categories.create({ name });
     res.status(201).json({ msg: "Categoría creada", category });
 
@@ -36,7 +40,7 @@ const updateCategory = async (req, res = response) => {
 
     const categoryFound = await Categories.findByPk(id);
     if (!categoryFound) {
-      return res.status(404).send({ msg: "Categoría no encontrada" });
+      return res.status(404).send({ msg: "La categoría no existe" });
     }
     await categoryFound.update({ name });
     res.json({ msg: "Categoría actualizada", categoryFound });
@@ -53,7 +57,7 @@ const deleteCategory = async (req, res = response) => {
 
     const categoryFound = await Categories.findByPk(id);
     if (!categoryFound) {
-      return res.status(404).send({ msg: "Categoría no encontrada" });
+      return res.status(404).send({ msg: "La categoría no existe" });
     }
     await categoryFound.destroy();
     res.send({ msg: "Categoría eliminada" });
