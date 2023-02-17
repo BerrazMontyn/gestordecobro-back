@@ -22,8 +22,20 @@ const createPayment = async (req, res) => {
 
 //__________________________________________________________________//
 
+const getPaymentId = async (req, res) => {
+  try {
+    if (req.params.id) {
+      let payment = Payments.findByPk(req.param.id);
+      return res.res(200).send({ message: "Successful search", payment });
+    }
+  } catch (error) {
+    console.error("Error in getPaymentId", error);
+  }
+};
+
 //__________________________________________________________________//
 
 module.exports = {
   createPayment,
+  getPaymentId,
 };
