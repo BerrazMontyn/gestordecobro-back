@@ -1,4 +1,5 @@
-const Payments = require("../models/Payments");
+const { Payments } = require("../database");
+const { Op } = require("sequelize");
 
 //__________________________________________________________________//
 
@@ -40,9 +41,7 @@ const getPayment = async (req, res) => {
     if (req.query.name) {
       let payment = Payments.findAll({
         where: {
-          name: {
-            name: { [Op.iLike]: `%${req.query.name}%` },
-          },
+          name: { [Op.iLike]: `%${req.query.name}%` },
         },
       });
 
@@ -72,6 +71,15 @@ const editPayment = async (req, res) => {
 
 //__________________________________________________________________//
 
+const deletePayment = async (req, res) => {
+  try {
+    await Payments.destroy({ where: { id: req.params.id } });
+    return res.status(200).send("Successfully eliminated");
+  } catch (error) {
+    console.error("Error in deletePayment", error);
+  }
+};
+
 //__________________________________________________________________//
 
 module.exports = {
@@ -79,4 +87,5 @@ module.exports = {
   getPaymentId,
   getPayment,
   editPayment,
+  deletePayment,
 };
