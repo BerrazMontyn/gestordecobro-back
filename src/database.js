@@ -31,7 +31,7 @@ let sequelize =
       })
     : new Sequelize(
         `postgres://${DB_USER}:${DB_PASSWORD}@localhost:5432/${DB_NAME}`,
-        { logging: false, native: false },
+        { logging: false, native: false }
       );
 
 const basename = path.basename(__filename);
@@ -42,7 +42,7 @@ const modelDefiners = [];
 fs.readdirSync(path.join(__dirname, "/models"))
   .filter(
     (file) =>
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js",
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
   )
   .forEach((file) => {
     modelDefiners.push(require(path.join(__dirname, "/models", file)));
@@ -58,7 +58,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Importar tablas:
-const { Categories } = sequelize.models;
+const { Categories, Customers, Payments } = sequelize.models;
 
 // Relaciones:
 // Modelo.belongsToMany(OtroModelo, { tabla intermedia })
