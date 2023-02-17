@@ -59,6 +59,17 @@ const getPayment = async (req, res) => {
 
 //__________________________________________________________________//
 
+const editPayment = async (req, res) => {
+  try {
+    await Payments.update(req.body, {
+      where: { id: req.params.id },
+    });
+    return res.status(200).send({ msj: "Successfully edited" });
+  } catch (error) {
+    console.error("Error in editPayment", error);
+  }
+};
+
 //__________________________________________________________________//
 
 //__________________________________________________________________//
@@ -67,4 +78,5 @@ module.exports = {
   createPayment,
   getPaymentId,
   getPayment,
+  editPayment,
 };
