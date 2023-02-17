@@ -35,7 +35,36 @@ const getPaymentId = async (req, res) => {
 
 //__________________________________________________________________//
 
+const getPayment = async (req, res) => {
+  try {
+    if (req.query.name) {
+      let payment = Payments.findAll({
+        where: {
+          name: {
+            name: { [Op.iLike]: `%${req.query.name}%` },
+          },
+        },
+      });
+
+      return res.status(200).send({ message: "Successful search", payment });
+    } else {
+      let payment = Payments.findAll();
+
+      return res.status(200).send({ message: "Successful search", payment });
+    }
+  } catch (error) {
+    console.error("Error in getPayment", error);
+  }
+};
+
+//__________________________________________________________________//
+
+//__________________________________________________________________//
+
+//__________________________________________________________________//
+
 module.exports = {
   createPayment,
   getPaymentId,
+  getPayment,
 };
