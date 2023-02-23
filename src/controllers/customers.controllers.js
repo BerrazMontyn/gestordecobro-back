@@ -47,7 +47,9 @@ const getCustomer = async (req, res) => {
       });
       return res.status(200).send({ message: "Successful search", customer });
     } else {
-      let customer = await Customers.findAll();
+      let customer = await Customers.findAll({
+        order: [[req.query.property, req.query.order]],
+      });
       return res.status(200).send({ message: "Successful search", customer });
     }
   } catch (error) {
