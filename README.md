@@ -35,6 +35,7 @@ Body:
 ```js
 {
   name: String;
+  subCategories: [String];
 }
 ```
 
@@ -47,6 +48,18 @@ id: Number;
 
 {
   name: String;
+}
+```
+
+### `PUT /categories/subCategory/:id`
+
+URL Parameters and Body:
+
+```js
+id: Number;
+
+{
+  subCategories: [String];
 }
 ```
 
@@ -97,7 +110,7 @@ User Admin:
 }
 ```
 
-## Configuracion:
+## Configuración:
 
 - Crear un archivo `.env` para las variables de entorno tome de guia, el ejemplo de configuracion en `.env.example`
 - Instalar dependencias `npm install`
