@@ -1,5 +1,5 @@
 const preAdmin = require("../json/preAdmin.json");
-const { Admin } = require("../database.js");
+const { Admin, Customers } = require("../database.js");
 
 const preloadAdmin = async () => {
   try {
@@ -14,7 +14,6 @@ const preloadAdmin = async () => {
       createAdmin(user);
     }
     return dataAdmin;
-
   } catch (error) {
     console.log("ERROR en preloadAdmin", error);
   }
@@ -29,10 +28,18 @@ const createAdmin = async (data) => {
       password,
     });
     return savedAdmin;
-
   } catch (error) {
     console.log("ERROR en createAdmin", error);
   }
 };
+//________________________________________________________//
 
-module.exports = { preloadAdmin, createAdmin };
+const preloadCustomers = async (data) => {
+  try {
+    await Customers.bulkCreate(data);
+  } catch (error) {
+    console.error("ERROR en preloadCustomers");
+  }
+};
+
+module.exports = { preloadAdmin, createAdmin, preloadCustomers };

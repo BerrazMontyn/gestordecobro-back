@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Juan Manuel Berraz Montyn",
+    "identityCard": 12345678,
+    "address": "Av San Martin 123",
+    "email": "prueba@prueba.com",
+    "cellPhone": 123456789
+  },
+  {
+    "name": "Franco Bosco",
+    "identityCard": 12345678,
+    "address": "Av San Martin 123",
+    "email": "prueba@prueba.com",
+    "cellPhone": 123456789
+  },
+  {
+    "name": "Alexis Uriarte",
+    "identityCard": 12345678,
+    "address": "Av San Martin 123",
+    "email": "prueba@prueba.com",
+    "cellPhone": 123456789
+  },
+  {
+    "name": "Cristian Larrauri",
+    "identityCard": 12345678,
+    "address": "Av San Martin 123",
+    "email": "prueba@prueba.com",
+    "cellPhone": 123456789
+  }
+]
