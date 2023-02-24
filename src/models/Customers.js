@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     identityCard: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     address: {
@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     cellPhone: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   });
