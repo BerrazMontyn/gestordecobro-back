@@ -32,6 +32,7 @@ const createAdmin = async (data) => {
     console.log("ERROR en createAdmin", error);
   }
 };
+
 //________________________________________________________//
 
 const preloadCustomers = async (data) => {
