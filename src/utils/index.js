@@ -1,7 +1,5 @@
 const { Admin, Customers, Categories } = require("../database.js");
 
-//________________________________________________________//
-
 const preloadAdmin = async (admin) => {
   try {
     await Admin.bulkCreate(admin);
@@ -29,8 +27,6 @@ const preloadCategories = async (data) => {
     console.error("ERROR en preloadCategories");
   }
 };
-
-//________________________________________________________//
 
 module.exports = {
   preloadAdmin,
