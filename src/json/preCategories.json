@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Seguros",
+    "subCategories": ["La Caja", "Sancor seguros"]
+  },
+  {
+    "name": "Prestamos",
+    "subCategories": ["BBVA", "Banco Galicia", "Banco Nación"]
+  },
+  {
+    "name": "Medicina prepaga",
+    "subCategories": ["MET", "APROSS", "OSDE"]
+  }
+]
