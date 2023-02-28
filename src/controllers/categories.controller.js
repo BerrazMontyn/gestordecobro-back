@@ -11,6 +11,7 @@ const createCategory = async (req, res = response) => {
     }
     const category = await Categories.create({ name, subCategories });
     res.status(201).json({ msg: "Categoría creada", category });
+
   } catch (error) {
     console.log("ERROR en createCategory");
     res.status(500).send({ msg: error.message });
@@ -25,6 +26,7 @@ const getCategories = async (req, res = response) => {
       return res.json({ msg: "No hay Categorías", allCategories });
     }
     res.json({ msg: "Todas las categorías", allCategories });
+
   } catch (error) {
     console.log("ERROR en getCategories");
     res.status(500).send({ msg: error.message });
@@ -42,6 +44,7 @@ const updateCategory = async (req, res = response) => {
     }
     await categoryFound.update({ name });
     res.json({ msg: "Categoría actualizada", categoryFound });
+
   } catch (error) {
     console.log("ERROR en updateCategory");
     res.status(500).send({ msg: error.message });
@@ -58,6 +61,7 @@ const deleteCategory = async (req, res = response) => {
     }
     await categoryFound.destroy();
     res.send({ msg: "Categoría eliminada" });
+
   } catch (error) {
     console.log("ERROR en deleteCategory");
     res.status(500).send({ msg: error.message });
@@ -75,6 +79,7 @@ const addSubCategories = async (req, res = response) => {
     }
     await categoryFound.update({ subCategories });
     res.json({ msg: "SubCategoría agregada", categoryFound });
+    
   } catch (error) {
     console.log("ERROR en addSubCategory");
     res.status(500).send({ msg: error.message });

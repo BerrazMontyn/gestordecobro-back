@@ -1,35 +1,10 @@
-const preAdmin = require("../json/preAdmin.json");
-const { Admin, Customers } = require("../database.js");
+const { Admin, Customers, Categories } = require("../database.js");
 
-const preloadAdmin = async () => {
+const preloadAdmin = async (admin) => {
   try {
-    let dataAdmin = preAdmin.map((admin) => {
-      return {
-        user: admin.user,
-        password: admin.password,
-      };
-    });
-
-    for (const user of dataAdmin) {
-      createAdmin(user);
-    }
-    return dataAdmin;
+    await Admin.bulkCreate(admin);
   } catch (error) {
-    console.log("ERROR en preloadAdmin", error);
-  }
-};
-
-const createAdmin = async (data) => {
-  try {
-    const { user, password } = data;
-
-    const savedAdmin = await Admin.create({
-      user,
-      password,
-    });
-    return savedAdmin;
-  } catch (error) {
-    console.log("ERROR en createAdmin", error);
+    console.error("ERROR en preloadAdmin");
   }
 };
 
@@ -43,4 +18,18 @@ const preloadCustomers = async (data) => {
   }
 };
 
-module.exports = { preloadAdmin, createAdmin, preloadCustomers };
+//________________________________________________________//
+
+const preloadCategories = async (data) => {
+  try {
+    await Categories.bulkCreate(data);
+  } catch (error) {
+    console.error("ERROR en preloadCategories");
+  }
+};
+
+module.exports = {
+  preloadAdmin,
+  preloadCustomers,
+  preloadCategories,
+};

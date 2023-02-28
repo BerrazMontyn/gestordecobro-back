@@ -105,7 +105,7 @@ User Admin:
 
 ```js
 {
-  user: "admin",
+  user: "admin@admin.com",
   password: "123456"
 }
 ```
