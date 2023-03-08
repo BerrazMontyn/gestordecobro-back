@@ -1,11 +1,12 @@
-const { Customers } = require("../database");
+const { Customers, Categories } = require("../database");
 const { Op } = require("sequelize");
 
 //__________________________________________________________________//
 
 const createCustomer = async (req, res) => {
   try {
-    let { name, identityCard, address, email, cellPhone } = req.body;
+    let { name, identityCard, address, email, cellPhone, categories } =
+      req.body;
 
     let newCustomer = await Customers.create({
       name: name.charAt(0).toUpperCase() + name.slice(1),
@@ -14,6 +15,12 @@ const createCustomer = async (req, res) => {
       email,
       cellPhone,
     });
+
+    let categoriesOfCustomers = await Categories.findAll({
+      where: { name: categories },
+    });
+
+    await newCustomer.addCategories(categoriesOfCustomers);
 
     return res
       .status(200)
@@ -44,6 +51,7 @@ const getCustomer = async (req, res) => {
         where: {
           name: { [Op.iLike]: `%${req.query.name}%` },
         },
+        include: { model: Categories },
       });
       return res.status(200).send({ message: "Successful search", customer });
     } else {
