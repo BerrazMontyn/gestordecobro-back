@@ -9,7 +9,7 @@ let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize(
         DB_DEPLOY,
-        { logging: false, native: false },
+        { logging: false, native: false }
         // {
         //   database: DB_NAME,
         //   dialect: "postgres",
@@ -38,7 +38,7 @@ let sequelize =
         {
           logging: false,
           native: false,
-        },
+        }
       );
 
 const basename = path.basename(__filename);
@@ -49,7 +49,7 @@ const modelDefiners = [];
 fs.readdirSync(path.join(__dirname, "/models"))
   .filter(
     (file) =>
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js",
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
   )
   .forEach((file) => {
     modelDefiners.push(require(path.join(__dirname, "/models", file)));
@@ -68,6 +68,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Categories, Customers, Payments } = sequelize.models;
 
 // Relaciones:
+Customers.belongsToMany(Categories, { Customers_Categories });
+Categories.belongsToMany(Customers, { Customers_Categories });
 // Modelo.belongsToMany(OtroModelo, { tabla intermedia })
 
 module.exports = {
