@@ -51,6 +51,7 @@ const getCustomer = async (req, res) => {
         where: {
           name: { [Op.iLike]: `%${req.query.name}%` },
         },
+        include: { model: Categories },
       });
       return res.status(200).send({ message: "Successful search", customer });
     } else {
