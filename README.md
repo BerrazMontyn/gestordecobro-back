@@ -74,6 +74,7 @@ Body:
   address: String;
   email: String;
   cellPhone: String;
+  categories: Array[String];
 }
 ```
 
