@@ -4,11 +4,11 @@ require("dotenv").config();
 
 const jsonAdmin = require("./src/json/preAdmin.json");
 const jsonCustomers = require("./src/json/preCustomers.json");
-const jsonCategories = require("./src/json/preCategories.json");
+const jsonServices = require("./src/json/preServices.json");
 const {
   preloadAdmin,
   preloadCustomers,
-  preloadCategories,
+  preloadServices,
 } = require("./src/utils/index");
 
 const port = process.env.PORT;
@@ -17,7 +17,7 @@ conn.sync({ force: true }).then(() => {
   server.listen(port, () => {
     preloadAdmin(jsonAdmin);
     preloadCustomers(jsonCustomers);
-    preloadCategories(jsonCategories);
+    preloadServices(jsonServices);
     console.log(`Server listening on port: ${port}`);
   });
 });
