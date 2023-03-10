@@ -1,18 +1,19 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("payments", {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    detail: {
-      type: DataTypes.STRING,
+  sequelize.define("coupons", {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
     },
     expirationDate: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    paid: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   });
 };
