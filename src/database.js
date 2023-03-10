@@ -9,7 +9,7 @@ let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize(
         DB_DEPLOY,
-        { logging: false, native: false },
+        { logging: false, native: false }
         // {
         //   database: DB_NAME,
         //   dialect: "postgres",
@@ -38,7 +38,7 @@ let sequelize =
         {
           logging: false,
           native: false,
-        },
+        }
       );
 
 const basename = path.basename(__filename);
@@ -49,7 +49,7 @@ const modelDefiners = [];
 fs.readdirSync(path.join(__dirname, "/models"))
   .filter(
     (file) =>
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js",
+      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
   )
   .forEach((file) => {
     modelDefiners.push(require(path.join(__dirname, "/models", file)));
@@ -65,13 +65,15 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Importar tablas:
-const { Services, Customers, Payments, Companies } = sequelize.models;
+const { Services, Customers, Payments, Companies, Coupons } = sequelize.models;
 
 // Relaciones:
-// Customers.belongsToMany(Services, { Customers_Services });
-// Services.belongsToMany(Customers, { Customers_Services });
+Customers.belongsToMany(Services, { Customers_Services });
+Services.belongsToMany(Customers, { Customers_Services });
 Services.belongsToMany(Companies, { through: "Services_Companies" });
 Companies.belongsToMany(Services, { through: "Services_Companies" });
+Customers.hasMany(Coupons);
+Coupons.belongsTo(Customers);
 
 module.exports = {
   ...sequelize.models,
