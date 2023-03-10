@@ -65,11 +65,13 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Importar tablas:
-const { Services, Customers, Payments } = sequelize.models;
+const { Services, Customers, Payments, Companies } = sequelize.models;
 
 // Relaciones:
 // Customers.belongsToMany(Services, { Customers_Services });
 // Services.belongsToMany(Customers, { Customers_Services });
+Services.belongsToMany(Companies, { through: "Services_Companies" });
+Companies.belongsToMany(Services, { through: "Services_Companies" });
 
 module.exports = {
   ...sequelize.models,

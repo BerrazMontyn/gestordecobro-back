@@ -28,18 +28,17 @@ id: Number;
 }
 ```
 
-### `POST /categories`
+### `POST /services`
 
 Body:
 
 ```js
 {
   name: String;
-  subCategories: [String];
 }
 ```
 
-### `PUT /categories/:id`
+### `PUT /services/:id`
 
 URL Parameters and Body:
 
@@ -48,18 +47,6 @@ id: Number;
 
 {
   name: String;
-}
-```
-
-### `PUT /categories/subCategory/:id`
-
-URL Parameters and Body:
-
-```js
-id: Number;
-
-{
-  subCategories: [String];
 }
 ```
 
@@ -74,7 +61,6 @@ Body:
   address: String;
   email: String;
   cellPhone: String;
-  categories: Array[String];
 }
 ```
 
@@ -94,13 +80,24 @@ id: Number;
 }
 ```
 
+### `POST /companies`
+
+Body:
+
+````js
+{
+  name: String;
+  services: [String];
+}
+
+
 ### `GET /admin/:id`
 
 URL Parameters:
 
 ```js
 id: 1;
-```
+````
 
 User Admin:
 
