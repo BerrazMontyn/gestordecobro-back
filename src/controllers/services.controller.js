@@ -1,5 +1,5 @@
 const { response } = require("express");
-const { Services } = require("../database.js");
+const { Services, Companies } = require("../database.js");
 
 const createService = async (req, res = response) => {
   try {
@@ -20,7 +20,15 @@ const createService = async (req, res = response) => {
 
 const getServices = async (req, res = response) => {
   try {
-    const allServices = await Services.findAll();
+    const allServices = await Services.findAll({
+      include: {
+        model: Companies,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
 
     if (!allServices.length) {
       return res.json({ msg: "No hay servicios", allServices });
@@ -61,7 +69,7 @@ const deleteService = async (req, res = response) => {
     }
     await serviceFound.destroy();
     res.send({ msg: "Servicio eliminado" });
-
+    
   } catch (error) {
     console.log("ERROR en deleteService");
     res.status(500).send({ msg: error.message });
