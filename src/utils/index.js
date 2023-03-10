@@ -1,4 +1,4 @@
-const { Admin, Customers, Categories } = require("../database.js");
+const { Admin, Customers, Services } = require("../database.js");
 
 const preloadAdmin = async (admin) => {
   try {
@@ -20,16 +20,16 @@ const preloadCustomers = async (data) => {
 
 //________________________________________________________//
 
-const preloadCategories = async (data) => {
+const preloadServices = async (data) => {
   try {
-    await Categories.bulkCreate(data);
+    await Services.bulkCreate(data);
   } catch (error) {
-    console.error("ERROR en preloadCategories");
+    console.error("ERROR en preloadServices");
   }
 };
 
 module.exports = {
   preloadAdmin,
   preloadCustomers,
-  preloadCategories,
+  preloadServices,
 };
